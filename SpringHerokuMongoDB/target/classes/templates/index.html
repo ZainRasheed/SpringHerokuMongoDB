@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+    <MyTag th:switch="${role}">
+        <h3 th:case="'REG'" th:text="'Hello World!' + ${CompanyDetails.name}"></h3>
+        <h3 th:case="*">Hello World!</h3>
+    </MyTag>
+    <hr>
+    <br>
+    <MyTag th:switch="${role}">
+    <form th:case="'REG'" action="addDataFromForm" method="post">
+      <label for="Id">Company ID:</label><br>
+      <input type="number" id="id" name="id" th:value="${CompanyDetails.id}"><br>
+      <label for="name">Company name:</label><br>
+      <input type="text" id="name" name="name" th:value="${CompanyDetails.name}"><br>
+      <label for="description">Description:</label><br>
+      <input type="text" id="description" name="description" th:value="${CompanyDetails.description}"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+
+    <form th:case="*" action="addDataFromForm" method="post">
+      <label for="Id">Company ID:</label><br>
+      <input type="number" id="id" name="id"><br>
+      <label for="name">Company name:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="description">Description:</label><br>
+      <input type="text" id="description" name="description"><br><br>
+      <input type="submit" value="Submit">
+    </form>
+    </MyTag>
+    <hr>
+    <br>
+    <h3> Showing all registered users </h3>
+
+    <div th:each="details : ${CompanyDetailsList}">
+        <p th:text="'Name: ' + ${details.name}"></p>
+        <p th:text="'Description: ' + ${details.description}"></p>
+        <p th:text="'ID: ' + ${details.id}"></p>
+        <hr>
+    </div>
+</body>
+</html>
